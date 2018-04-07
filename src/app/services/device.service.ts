@@ -7,6 +7,7 @@ import 'rxjs/add/operator/do';
 
 import { Device } from '../data-model/device';
 import { ServiceConfig } from '../config/config';
+import { DeviceMessage } from '../data-model/deviceMessage';
 
 @Injectable()
 export class DeviceService {
@@ -14,6 +15,11 @@ export class DeviceService {
 
     getDevicesByUser(userId: string): Observable<Device[]> {
         return this._http.get<Device[]>(ServiceConfig.host + '/users/' + userId + '/devices')
+            .catch(this.handleError);
+    }
+
+    getDeviceMessages(deviceId: string): Observable<DeviceMessage[]> {
+        return this._http.get<DeviceMessage[]>(ServiceConfig.host + '/devices/' + deviceId + '/messages')
             .catch(this.handleError);
     }
 

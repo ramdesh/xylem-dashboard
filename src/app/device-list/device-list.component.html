@@ -1,3 +1,55 @@
 <div>
+    <div class="box col-md-4">
+        <div class="box-title text-center"><h4 style="margin-top:20px;">My Devices</h4>
+        </div>
+        <div class="box-body" *ngIf="devicesLoaded">
+            <mat-list>
+                <mat-list-item *ngFor="let device of deviceList">
+                    <div class="col-md-6" style="margin-right:20px;"><h5>{{device.clientId}}</h5><p>{{device.type}}</p></div>
+                    <div class="col-md-3">
+                        <button mat-icon-button color="accent" (click)="viewDeviceMessages(device.clientId)">
+                            <mat-icon>email</mat-icon>
+                        </button>
+                    </div>
+                    <div class="col-md-3" style="margin-top:10px;">
+                        <button mat-icon-button color="accent" (click)="viewDeviceMessages(device.clientId)">
+                            <mat-icon>queue</mat-icon>
+                        </button>
+                    </div>
+                </mat-list-item>
+            </mat-list>
+        </div>
+        <div class="box-footer">
+            <div class="col-md-6">
+                <button mat-raised-button>Add Device</button>
+            </div>
+        </div>
+    </div>
+    <div class="box col-md-8" *ngIf="messagesLoaded">
+        <div class="box-title text-center"><h4 style="margin-top:20px;">Device Messages</h4></div>
+        <div class="box-body">
+            <mat-table #table [dataSource]="deviceMessageList">
+                <!-- Position Column -->
+                <ng-container matColumnDef="topic">
+                    <mat-header-cell *matHeaderCellDef> Topic </mat-header-cell>
+                    <mat-cell *matCellDef="let message"> {{message.topic}} </mat-cell>
+                </ng-container>
 
+                <!-- Name Column -->
+                <ng-container matColumnDef="payload">
+                    <mat-header-cell *matHeaderCellDef> Payload </mat-header-cell>
+                    <mat-cell *matCellDef="let message"> {{message.payload}} </mat-cell>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="timestamp">
+                    <mat-header-cell *matHeaderCellDef> Timestamp </mat-header-cell>
+                    <mat-cell *matCellDef="let message"> {{message.timestamp}} </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+        </div>
+    </div>
 </div>

@@ -1,0 +1,23 @@
+<div class="row justify-content-center">
+    <div class="box col-md-4">
+        <div class="box-title text-center"><h4 style="margin-top:20px;">Login</h4></div>
+        <div class="row justify-content-center">
+            <div class="box-body">
+                <mat-form-field class="col-md-10">
+                    <input matInput [(ngModel)]="username" placeholder="Username" required>
+                </mat-form-field> <br/>
+                <mat-form-field class="col-md-10">
+                    <input type="password" [(ngModel)]="password" matInput placeholder="Password" required>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="box-footer">
+                <button mat-raised-button color="accent" (click)="login()">
+                    Login
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -31,13 +31,13 @@ export class DeviceListComponent implements OnInit {
 
     openCreateDeviceDialog(): void {
         let dialogRef = this.dialog.open(CreateDeviceDialog, {
-            width: '250px',
+            width: '350px',
             data: { clientId: '', token: '', type: '' }
         });
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
-            console.log(result);
+            this.getDeviceList();
         });
     }
 
@@ -69,8 +69,14 @@ export class DeviceListComponent implements OnInit {
 })
 export class CreateDeviceDialog {
 
+    clientId: string;
+    token: string;
+    type: string;
+
     constructor(
         public dialogRef: MatDialogRef<CreateDeviceDialog>,
+        private _deviceService: DeviceService,
+        private _profileService: ProfileService,
         @Inject(MAT_DIALOG_DATA) public data: any) { }
 
     close(): void {
@@ -78,6 +84,12 @@ export class CreateDeviceDialog {
     }
 
     save(): void {
+        let ownerId = this._profileService.getCurrentUserId();
+        this._deviceService.createDevice(this.clientId, this.type, ownerId, this.token)
+            .subscribe(result => {
+                console.log(result);
+                this.dialogRef.close();
+            });
 
     }
 

@@ -4,16 +4,11 @@
         </div>
         <div class="box-body" *ngIf="devicesLoaded">
             <mat-list>
-                <mat-list-item *ngFor="let device of deviceList">
-                    <div class="col-md-6" style="margin-right:20px;"><h5>{{device.clientId}}</h5><p>{{device.type}}</p></div>
-                    <div class="col-md-3">
-                        <button mat-icon-button color="accent" (click)="viewDeviceMessages(device.clientId)">
-                            <mat-icon>email</mat-icon>
-                        </button>
-                    </div>
-                    <div class="col-md-3" style="margin-top:10px;">
-                        <button mat-icon-button color="accent" (click)="viewDeviceMessages(device.clientId)">
-                            <mat-icon>queue</mat-icon>
+                <mat-list-item *ngFor="let device of deviceList" style="margin-bottom:20px;">
+                    <div class="col-md-6" style="margin-right:20px;"><h4>{{device.clientId}}</h4><p>{{device.type}}</p></div>
+                    <div class="col-md-6">
+                        <button class="mat-raised-button mat-primary" (click)="viewDeviceMessages(device.clientId)">
+                            View Message History<span><mat-icon>email</mat-icon></span>
                         </button>
                     </div>
                 </mat-list-item>

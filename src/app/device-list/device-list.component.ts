@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { DeviceService } from '../services/device.service';
 import { ProfileService } from '../services/profile.service';
@@ -20,10 +21,27 @@ export class DeviceListComponent implements OnInit {
 
     constructor(
         private _deviceService: DeviceService,
-        private _profileService: ProfileService
+        private _profileService: ProfileService,
+        public dialog: MatDialog
     ) { }
 
     ngOnInit() {
+        this.getDeviceList();
+    }
+
+    openCreateDeviceDialog(): void {
+        let dialogRef = this.dialog.open(CreateDeviceDialog, {
+            width: '250px',
+            data: { clientId: '', token: '', type: '' }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            console.log(result);
+        });
+    }
+
+    getDeviceList() {
         this._deviceService.getDevicesByUser(this._profileService.getCurrentUserId())
             .subscribe(devices => {
                 this.deviceList = devices;
@@ -41,6 +59,26 @@ export class DeviceListComponent implements OnInit {
             }, error => {
                 console.log(error);
             });
+    }
+
+}
+
+@Component({
+    selector: 'create-device-dialog',
+    templateUrl: 'create-device-dialog.html',
+})
+export class CreateDeviceDialog {
+
+    constructor(
+        public dialogRef: MatDialogRef<CreateDeviceDialog>,
+        @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+    close(): void {
+        this.dialogRef.close();
+    }
+
+    save(): void {
+
     }
 
 }

@@ -23,6 +23,16 @@ export class DeviceService {
             .catch(this.handleError);
     }
 
+    createDevice(clientId: string, type: string, ownerId: string, token: string) {
+        return this._http.post<Device>(ServiceConfig.host + '/devices', {
+            clientId: clientId,
+            type: type,
+            ownerId: ownerId,
+            token: token
+        })
+            .catch(this.handleError);
+    }
+
     handleError(err: HttpErrorResponse) {
         console.log(err.message);
         return Observable.throw(err.message);

@@ -13,13 +13,15 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { DeviceListComponent } from './device-list/device-list.component';
 import { AppRoutingModule } from './app-routing.module';
+import { CreateDeviceDialog } from './device-list/device-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    DeviceListComponent
+    DeviceListComponent,
+    CreateDeviceDialog
   ],
   imports: [
     BrowserModule,
@@ -32,6 +34,7 @@ import { AppRoutingModule } from './app-routing.module';
       ProfileService,
       DeviceService
   ],
+  entryComponents: [CreateDeviceDialog],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
